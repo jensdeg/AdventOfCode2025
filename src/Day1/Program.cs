@@ -4,7 +4,7 @@ var lines = content.Split(Environment.NewLine);
 var DialNumber = 50;
 var ZeroCount = 0;
 
-foreach(var line in lines)
+foreach (var line in lines)
 {
     if (line.StartsWith('L'))
     {
@@ -20,18 +20,18 @@ foreach(var line in lines)
 
 Console.WriteLine(ZeroCount);
 
-
 void Subtract(int count)
 {
-    for(int i = 0; i < count; i++)
+    for (int i = 0; i < count; i++)
     {
         DialNumber--;
-        if(DialNumber < 0)
+        if (DialNumber < 0)
         {
             DialNumber = 99;
         }
+        if (DialNumber == 0) ZeroCount++; // PART 2
     }
-    if(DialNumber == 0) ZeroCount++;
+    // if (DialNumber == 0) ZeroCount++; PART 1
 }
 
 void Add(int count)
@@ -43,6 +43,7 @@ void Add(int count)
         {
             DialNumber = 0;
         }
+        if (DialNumber == 0) ZeroCount++; // PART 2
     }
-    if (DialNumber == 0) ZeroCount++;
+    // if (DialNumber == 0) ZeroCount++; PART 1
 }

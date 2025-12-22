@@ -1,23 +1,34 @@
 ﻿var content = File.ReadAllText("Input.txt");
 var ranges = content.Split(',');
 
-long InvalidIds = 0;
+List<long> InvalidIds = [];
 
 foreach (var range in ranges)
 {
     var start = long.Parse(range.Split('-')[0]);
     var end = long.Parse(range.Split("-")[1]);
-    for(long id = start; id < end; id++)
+    for(long id = start; id <= end; id++)
     {
         var idString = id.ToString();
-        if (idString.Length % 2 != 0) continue;
+        
+        for(int i = 0; i < idString.Length / 2; i++)
+        {
+            var pairs = new List<string>();
 
-        var left = idString[..(idString.Length / 2)];
-        var right = idString[(idString.Length / 2)..];
+            var pair = idString[..(i + 1)];
+            if (idString.Length % pair.Length != 0) continue;
 
-        if (left == right) InvalidIds += id;
+            for (int j = 0; j < idString.Length; j += pair.Length)
+            {
+                pairs.Add(idString.Substring(j, pair.Length));
+            }
 
+            if (pairs.All(p => p == pair) && !InvalidIds.Contains(id))
+            {
+                InvalidIds.Add(id);
+            }
+        }
     }
 }
 
-Console.WriteLine(InvalidIds);
+Console.WriteLine(InvalidIds.Sum());
